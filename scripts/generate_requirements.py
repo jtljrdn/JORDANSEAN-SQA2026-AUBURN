@@ -13,12 +13,12 @@ def parse_md_to_requirements(md_file):
     current_parent_desc = None
     parent_counter = {}
 
-    with open(md_file, "r") as f:
+    with open(md_file, "r", encoding="utf-8") as f:
         lines = [line.strip() for line in f if line.strip()]
 
     for line in lines:
         # Match top-level section (a), (b), (c) with REQ ID
-        parent_match = re.match(r"^\(([a-z])\)\s+(.*)→\s+(REQ-[\d\.]+-\d+)", line)
+        parent_match = re.match(r"^##\s+\(([a-z])\)\s+(.*?)\s*→\s*(REQ-[\d\.]+-\d+)$", line)
         if parent_match:
             letter, desc, req_id = parent_match.groups()
             current_parent_id = req_id
@@ -27,13 +27,13 @@ def parse_md_to_requirements(md_file):
             continue
 
         # Match child atomic units (numbered or lettered)
-        child_match = re.match(r"^(?:\(?(\d+|[a-zA-Z])\)?[:\s]*)?(.*?)(?:→\s*([A-Z0-9]+))?$", line)
+        child_match = re.match(r"^-+\s*(?:\(([^\)]+)\)\s*)?(.*?)\s*(?:→\s*([A-Z0-9]+))?$", line)
         if child_match and current_parent_id:
             identifier, desc, child_letter = child_match.groups()
             if not child_letter:
                 # Auto-assign letters for children if not provided
                 parent_counter[current_parent_id] += 1
-                child_letter = chr(64 + parent_counter[current_parent_id])  # A, B, C...
+                child_letter = chr(64 + parent_counter[current_parent_id])
             req = {
                 "requirement_id": f"{current_parent_id}{child_letter}",
                 "description": desc.strip(),
@@ -52,7 +52,7 @@ if __name__ == "__main__":
     md_file = sys.argv[1]
     requirements = parse_md_to_requirements(md_file)
 
-    with open("requirements.json", "w") as f:
-        json.dump(requirements, f, indent=2)
+    with open("requirements.json", "w", encoding="utf-8") as f:
+        json.dump(requirements, f, indent=2, ensure_ascii=False)
 
     print(f"Extracted {len(requirements)} requirements to requirements.json")
