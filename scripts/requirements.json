@@ -37,12 +37,6 @@
   },
   {
     "requirement_id": "REQ-117.130-002A",
-    "description": "Known or reasonably foreseeable hazards include:",
-    "source": "21 CFR 117.130",
-    "parent": "REQ-117.130-002"
-  },
-  {
-    "requirement_id": "REQ-117.130-002A",
     "description": "Biological hazards",
     "source": "21 CFR 117.130",
     "parent": "REQ-117.130-002"
@@ -56,12 +50,6 @@
   {
     "requirement_id": "REQ-117.130-002C",
     "description": "Physical hazards",
-    "source": "21 CFR 117.130",
-    "parent": "REQ-117.130-002"
-  },
-  {
-    "requirement_id": "REQ-117.130-002B",
-    "description": "Consider hazards for origin:",
     "source": "21 CFR 117.130",
     "parent": "REQ-117.130-002"
   },
