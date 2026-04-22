@@ -1,0 +1,106 @@
+[
+  {
+    "test_id": "TC-HAZ-001A",
+    "requirement_id": "REQ-HAZ-001A"
+  },
+  {
+    "test_id": "TC-HAZ-001B",
+    "requirement_id": "REQ-HAZ-001B"
+  },
+  {
+    "test_id": "TC-HAZ-001C",
+    "requirement_id": "REQ-HAZ-001C"
+  },
+  {
+    "test_id": "TC-HAZ-001D",
+    "requirement_id": "REQ-HAZ-001D"
+  },
+  {
+    "test_id": "TC-HAZ-001E",
+    "requirement_id": "REQ-HAZ-001E"
+  },
+  {
+    "test_id": "TC-HAZ-001F",
+    "requirement_id": "REQ-HAZ-001F"
+  },
+  {
+    "test_id": "TC-HAZ-002A",
+    "requirement_id": "REQ-HAZ-002A"
+  },
+  {
+    "test_id": "TC-HAZ-002B",
+    "requirement_id": "REQ-HAZ-002B"
+  },
+  {
+    "test_id": "TC-HAZ-002C",
+    "requirement_id": "REQ-HAZ-002C"
+  },
+  {
+    "test_id": "TC-HAZ-002A2",
+    "requirement_id": "REQ-HAZ-002A2"
+  },
+  {
+    "test_id": "TC-HAZ-002B2",
+    "requirement_id": "REQ-HAZ-002B2"
+  },
+  {
+    "test_id": "TC-HAZ-002C2",
+    "requirement_id": "REQ-HAZ-002C2"
+  },
+  {
+    "test_id": "TC-HAZ-003A",
+    "requirement_id": "REQ-HAZ-003A"
+  },
+  {
+    "test_id": "TC-HAZ-003A1",
+    "requirement_id": "REQ-HAZ-003A1"
+  },
+  {
+    "test_id": "TC-HAZ-003A2",
+    "requirement_id": "REQ-HAZ-003A2"
+  },
+  {
+    "test_id": "TC-HAZ-003B",
+    "requirement_id": "REQ-HAZ-003B"
+  },
+  {
+    "test_id": "TC-HAZ-003B1",
+    "requirement_id": "REQ-HAZ-003B1"
+  },
+  {
+    "test_id": "TC-HAZ-003B2",
+    "requirement_id": "REQ-HAZ-003B2"
+  },
+  {
+    "test_id": "TC-HAZ-003B3",
+    "requirement_id": "REQ-HAZ-003B3"
+  },
+  {
+    "test_id": "TC-HAZ-003B4",
+    "requirement_id": "REQ-HAZ-003B4"
+  },
+  {
+    "test_id": "TC-HAZ-003B5",
+    "requirement_id": "REQ-HAZ-003B5"
+  },
+  {
+    "test_id": "TC-HAZ-003B6",
+    "requirement_id": "REQ-HAZ-003B6"
+  },
+  {
+    "test_id": "TC-HAZ-003B7",
+    "requirement_id": "REQ-HAZ-003B7"
+  },
+  {
+    "test_id": "TC-HAZ-003B8",
+    "requirement_id": "REQ-HAZ-003B8"
+  },
+  {
+    "test_id": "TC-HAZ-003B9",
+    "requirement_id": "REQ-HAZ-003B9"
+  },
+  {
+    "test_id": "TC-HAZ-003B10",
+    "requirement_id": "REQ-HAZ-003B10"
+  }
+]
