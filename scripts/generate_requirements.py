@@ -1,101 +1,98 @@
-# scripts/extract_requirements.py
-
+# scripts/generate_requirements.py from https://github.com/effat/CFR_TEST/blob/main/scripts/generate_requirements.py
 import json
 import re
-import sys
+import argparse
+from collections import defaultdict
 
-def parse_md_to_requirements(md_file):
-    """
-    Parses a Markdown file with CFR section atomic rules and produces:
-    1. requirements.json-style list
-    2. expected structure mapping of parent -> child codes
-    """
+# ---------- Arguments ----------
+parser = argparse.ArgumentParser(description="Generate requirement JSON from CFR Markdown")
+parser.add_argument("--input", "-i", required=True, help="Input Markdown file (.md)")
+parser.add_argument("--output", "-o", required=True, help="Output JSON file")
+parser.add_argument("--cfr", "-c", required=True, help="CFR section (e.g., 21 CFR 117.130)")
+parser.add_argument(
+    "--expected-structure",
+    "-e",
+    required=True,
+    help="Output JSON mapping parent requirement id -> list of child letters",
+)
 
-    requirements = []
-    expected_structure = {}
-    current_parent_id = None
+args = parser.parse_args()
 
-    with open(md_file, "r", encoding="utf-8") as f:
-        lines = [line.strip() for line in f if line.strip()]
+INPUT_MD = args.input
+OUTPUT_JSON = args.output
+CFR_SECTION = args.cfr
+EXPECTED_STRUCTURE_JSON = args.expected_structure
+CATEGORY = "HAZ"
 
-    for line in lines:
-        # Match parent section headers, e.g.
-        # ## (a) Requirement for a hazard analysis → REQ-117.130-001
-        parent_match = re.match(r"^##\s+\(([a-z])\)\s+(.*?)\s*→\s*(REQ-[\d\.]+-\d+)\s*$", line)
-        if parent_match:
-            _, _, req_id = parent_match.groups()
-            current_parent_id = req_id
-            expected_structure[current_parent_id] = []
-            continue
+# ---------- Read File ----------
+with open(INPUT_MD, "r") as f:
+    lines = [line.strip() for line in f if line.strip()]
 
-        # Match child bullet lines, e.g.
-        # - (1) Conduct hazard analysis → A
-        # - Identify known hazards → B
-        # - (i) Assess severity... → A1
-        child_match = re.match(r"^-\s*(?:\([^)]+\)\s*)?(.*?)\s*(?:→\s*([A-Z0-9]+))?\s*$", line)
-        if child_match and current_parent_id:
-            desc, child_code = child_match.groups()
-            desc = desc.strip()
-
-            # Ignore structural lines with no explicit child code
-            # Example:
-            # - (1) Known or reasonably foreseeable hazards include:
-            # - (2) Consider hazards for origin:
-            if not child_code:
-                continue
-
-            req = {
-                "requirement_id": f"{current_parent_id}{child_code}",
-                "description": desc,
-                "source": "21 CFR " + current_parent_id.split("-")[1],
-                "parent": current_parent_id
-            }
-            requirements.append(req)
-            expected_structure[current_parent_id].append(child_code)
-
-    return requirements, expected_structure
+requirements = []
+current_req = None
+expected_structure: dict[str, list[str]] = defaultdict(list)
+child_index_by_parent: dict[str, int] = defaultdict(int)
 
 
-def parse_json_to_expected_structure(req_file):
-    """
-    Reads requirements.json and builds:
-    {
-      "REQ-117.130-001": ["A", "B", ...],
-      ...
-    }
-    """
-    with open(req_file, "r", encoding="utf-8") as f:
-        requirements = json.load(f)
-
-    expected_structure = {}
-
-    for req in requirements:
-        parent = req["parent"]
-        requirement_id = req["requirement_id"]
-
-        child_code = requirement_id.replace(parent, "", 1)
-
-        if parent not in expected_structure:
-            expected_structure[parent] = []
-
-        expected_structure[parent].append(child_code)
-
-    return expected_structure
+def _clean_description(text: str) -> str:
+    # Remove leading markdown bullets and leading numbering tokens like "(1)" "(i)" "(a)".
+    text = re.sub(r"^\s*[-*]\s+", "", text)
+    text = re.sub(r"^\(\s*[\wivxIVX]+\s*\)\s*", "", text)
+    return text.strip()
 
 
-if __name__ == "__main__":
-    if len(sys.argv) < 2:
-        print("Usage: python extract_requirements.py atomic_rules.md")
-        sys.exit(1)
+def _extract_section_number(raw_req: str) -> str:
+    # raw_req looks like "REQ-117.130-001" -> want "001"
+    m = re.search(r"-(\d{3})$", raw_req)
+    if not m:
+        raise ValueError(f"Could not extract 3-digit section number from {raw_req!r}")
+    return m.group(1)
 
-    md_file = sys.argv[1]
-    requirements, expected_structure = parse_md_to_requirements(md_file)
 
-    with open("requirements.json", "w", encoding="utf-8") as f:
-        json.dump(requirements, f, indent=2, ensure_ascii=False)
+def _next_letter(parent_id: str) -> str:
+    i = child_index_by_parent[parent_id]
+    if i >= 26:
+        raise ValueError(f"Too many children under {parent_id}: only A-Z supported")
+    child_index_by_parent[parent_id] += 1
+    return chr(ord("A") + i)
 
-    with open("expected_structure.json", "w", encoding="utf-8") as f:
-        json.dump(expected_structure, f, indent=2, ensure_ascii=False)
+# ---------- Parse ----------
+for line in lines:
 
-    print(f"Extracted {len(requirements)} requirements to requirements.json")
-    print(f"Wrote expected structure for {len(expected_structure)} parents to expected_structure.json")
+    # Capture REQ ID
+    req_match = re.search(r"→\s*(REQ-[\d\.]+-\d+)", line)
+    if req_match:
+        current_req = req_match.group(1)
+        continue
+
+    # Capture atomic rules
+    atomic_match = re.match(r"^(.*?)\s*→\s*([A-Z]\d*)$", line)
+    if atomic_match and current_req:
+        description = _clean_description(atomic_match.group(1))
+        # Ignore the markdown-provided suffix (A/A1/B10/etc). The verifier expects a
+        # single trailing letter, so we assign letters sequentially per parent.
+        _ = atomic_match.group(2)
+
+        section_num = _extract_section_number(current_req)
+        parent = f"REQ-{CATEGORY}-{section_num}"
+        letter = _next_letter(parent)
+        requirement_id = f"{parent}{letter}"
+
+        requirements.append({
+            "requirement_id": requirement_id,
+            "description": description,
+            "source": CFR_SECTION,
+            "parent": parent
+        })
+        expected_structure[parent].append(letter)
+
+# ---------- Save ----------
+with open(OUTPUT_JSON, "w") as f:
+    json.dump(requirements, f, indent=2)
+
+print(f"Saved {len(requirements)} requirements → {OUTPUT_JSON}")
+
+if EXPECTED_STRUCTURE_JSON:
+    with open(EXPECTED_STRUCTURE_JSON, "w") as f:
+        json.dump(expected_structure, f, indent=2)
+    print(f"Saved expected structure → {EXPECTED_STRUCTURE_JSON}")

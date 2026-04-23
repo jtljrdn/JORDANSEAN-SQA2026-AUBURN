@@ -29,8 +29,8 @@ def main() -> None:
 
         test_cases.append(
             {
-                "test_id": f"TC-HAZ-{tag}",
-                "requirement_id": f"REQ-HAZ-{tag}",
+                "test_id": req_id.replace("REQ-", "TC-", 1),
+                "requirement_id": req_id,
             }
         )
 
