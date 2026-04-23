@@ -20,10 +20,6 @@
     "requirement_id": "REQ-HAZ-001E"
   },
   {
-    "test_id": "TC-HAZ-001F",
-    "requirement_id": "REQ-HAZ-001F"
-  },
-  {
     "test_id": "TC-HAZ-002A",
     "requirement_id": "REQ-HAZ-002A"
   },
@@ -34,18 +30,6 @@
   {
     "test_id": "TC-HAZ-002C",
     "requirement_id": "REQ-HAZ-002C"
-  },
-  {
-    "test_id": "TC-HAZ-002D",
-    "requirement_id": "REQ-HAZ-002D"
-  },
-  {
-    "test_id": "TC-HAZ-002E",
-    "requirement_id": "REQ-HAZ-002E"
-  },
-  {
-    "test_id": "TC-HAZ-002F",
-    "requirement_id": "REQ-HAZ-002F"
   },
   {
     "test_id": "TC-HAZ-003A",

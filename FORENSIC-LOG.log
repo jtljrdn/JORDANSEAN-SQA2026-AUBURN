@@ -5,3 +5,17 @@
 2026-04-23 01:52:08,294:[2026-04-23T01:52:08.293868-05:00] component=verify action=load resource=test_cases.json from_where=/Users/admin/Documents/coding_stuff/COMP-5710/COMP-5710-project/scripts/test_cases.json status=success count=14
 2026-04-23 01:52:08,294:[2026-04-23T01:52:08.294254-05:00] component=verify action=check resource=requirements status=success failure_count=0
 2026-04-23 01:52:08,294:[2026-04-23T01:52:08.294344-05:00] component=verify action=exit status=success
+2026-04-23 15:09:44,409:[2026-04-23T15:09:44.409522-05:00] component=verify action=load resource=requirements.json from_where=C:\GitHub\JORDANSEAN-SQA2026-AUBURN\scripts\requirements.json status=success count=10
+2026-04-23 15:09:44,417:[2026-04-23T15:09:44.409522-05:00] component=verify action=load resource=test_cases.json from_where=C:\GitHub\JORDANSEAN-SQA2026-AUBURN\scripts\test_cases.json status=success count=10
+2026-04-23 15:09:44,418:[2026-04-23T15:09:44.417520-05:00] component=verify action=check resource=requirements status=success failure_count=0
+2026-04-23 15:09:44,418:[2026-04-23T15:09:44.418307-05:00] component=verify action=exit status=success
+2026-04-23 15:09:44,649:[2026-04-23T15:09:44.648584-05:00] component=validate action=load resource=requirements.json from_where=C:\GitHub\JORDANSEAN-SQA2026-AUBURN\scripts\requirements.json status=success count=10
+2026-04-23 15:09:44,649:[2026-04-23T15:09:44.648584-05:00] component=validate action=load resource=expected_structure.json from_where=C:\GitHub\JORDANSEAN-SQA2026-AUBURN\scripts\expected_structure.json status=success count=3
+2026-04-23 15:09:44,649:[2026-04-23T15:09:44.649585-05:00] component=validate action=check resource=requirements status=success failure_count=0
+2026-04-23 15:23:10,305:[2026-04-23T15:23:10.305324-05:00] component=verify action=load resource=requirements.json from_where=C:\GitHub\JORDANSEAN-SQA2026-AUBURN\scripts\requirements.json status=success count=10
+2026-04-23 15:23:10,312:[2026-04-23T15:23:10.305324-05:00] component=verify action=load resource=test_cases.json from_where=C:\GitHub\JORDANSEAN-SQA2026-AUBURN\scripts\test_cases.json status=success count=10
+2026-04-23 15:23:10,313:[2026-04-23T15:23:10.312323-05:00] component=verify action=check resource=requirements status=success failure_count=0
+2026-04-23 15:23:10,313:[2026-04-23T15:23:10.313323-05:00] component=verify action=exit status=success
+2026-04-23 15:23:10,542:[2026-04-23T15:23:10.542634-05:00] component=validate action=load resource=requirements.json from_where=C:\GitHub\JORDANSEAN-SQA2026-AUBURN\scripts\requirements.json status=success count=10
+2026-04-23 15:23:10,543:[2026-04-23T15:23:10.542634-05:00] component=validate action=load resource=expected_structure.json from_where=C:\GitHub\JORDANSEAN-SQA2026-AUBURN\scripts\expected_structure.json status=success count=3
+2026-04-23 15:23:10,543:[2026-04-23T15:23:10.543634-05:00] component=validate action=check resource=requirements status=success failure_count=0
