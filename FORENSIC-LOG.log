@@ -1,0 +1,7 @@
+2026-04-23 01:52:03,362:[2026-04-23T01:52:03.361810-05:00] component=validate action=load resource=requirements.json from_where=/Users/admin/Documents/coding_stuff/COMP-5710/COMP-5710-project/scripts/requirements.json status=success count=10
+2026-04-23 01:52:03,362:[2026-04-23T01:52:03.361810-05:00] component=validate action=load resource=expected_structure.json from_where=/Users/admin/Documents/coding_stuff/COMP-5710/COMP-5710-project/scripts/expected_structure.json status=success count=3
+2026-04-23 01:52:03,362:[2026-04-23T01:52:03.362264-05:00] component=validate action=check resource=requirements status=success failure_count=0
+2026-04-23 01:52:08,294:[2026-04-23T01:52:08.293868-05:00] component=verify action=load resource=requirements.json from_where=/Users/admin/Documents/coding_stuff/COMP-5710/COMP-5710-project/scripts/requirements.json status=success count=10
+2026-04-23 01:52:08,294:[2026-04-23T01:52:08.293868-05:00] component=verify action=load resource=test_cases.json from_where=/Users/admin/Documents/coding_stuff/COMP-5710/COMP-5710-project/scripts/test_cases.json status=success count=14
+2026-04-23 01:52:08,294:[2026-04-23T01:52:08.294254-05:00] component=verify action=check resource=requirements status=success failure_count=0
+2026-04-23 01:52:08,294:[2026-04-23T01:52:08.294344-05:00] component=verify action=exit status=success
